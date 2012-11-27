@@ -65,19 +65,19 @@ void display()
     // Lights are transformed by current modelview matrix. 
     // The shader can't do this globally. 
     // So we need to do so manually.  
-    // if (numused) {
-    //     glUniform1i(enablelighting,true);
+    if (numused) {
+        glUniform1i(enablelighting,true);
 
-    //     // YOUR CODE FOR HW 2 HERE.  
-    //     // You need to pass the light positions and colors to the shader. 
-    //     // glUniform4fv() and similar functions will be useful. See FAQ for help with these functions.
-    //     // The lightransf[] array in variables.h and transformvec() might also be useful here.
-    //     // Remember that light positions must be transformed by modelview.  
+        // YOUR CODE FOR HW 2 HERE.  
+        // You need to pass the light positions and colors to the shader. 
+        // glUniform4fv() and similar functions will be useful. See FAQ for help with these functions.
+        // The lightransf[] array in variables.h and transformvec() might also be useful here.
+        // Remember that light positions must be transformed by modelview.  
 
 
-    // } else {
-    //     glUniform1i(enablelighting,false); 
-    // }
+    } else {
+        glUniform1i(enablelighting,false); 
+    }
 
     // Transformations for objects, involving translation and scaling 
     mat4 sc(1.0) , tr(1.0), transf(1.0); 

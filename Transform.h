@@ -17,7 +17,6 @@ typedef glm::vec3 vec3 ;
 typedef glm::vec4 vec4 ; 
 const float pi = 3.14159265 ; // For portability across platforms
 
-
 class Transform  
 {
 public:
@@ -32,4 +31,3 @@ public:
         static mat4 translate(const float &tx, const float &ty, const float &tz);
         static vec3 upvector(const vec3 &up, const vec3 &zvec) ; 
 };
-

@@ -101,7 +101,17 @@ void readfile(const char* filename)
                             // YOUR CODE FOR HW 2 HERE. 
                             // Note that values[0...7] shows the read in values 
                             // Make use of lightposn[] and lightcolor[] arrays in variables.h
-                            // Those arrays can then be used in display too.  
+                            // Those arrays can then be used in display too.
+				lightposn[numused*4+0] = values[0];
+				lightposn[numused*4+1] = values[1];
+				lightposn[numused*4+2] = values[2];
+				lightposn[numused*4+3] = values[3];
+
+				lightcolor[numused*4+0] = values[4];
+				lightcolor[numused*4+1] = values[5];
+				lightcolor[numused*4+2] = values[6];
+				lightcolor[numused*4+3] = values[7];
+				
 
                             ++numused; 
                         }
