@@ -67,6 +67,10 @@ void display()
     // So we need to do so manually.  
     if (numused) {
         glUniform1i(enablelighting,true);
+	glUniform1i(numusedcol, numused);
+	
+	glUniform4fv(lightpos, numLights, lightposn);
+	glUniform4fv(lightcol, numLights, lightcolor);
 
         // YOUR CODE FOR HW 2 HERE.  
         // You need to pass the light positions and colors to the shader. 
@@ -101,6 +105,13 @@ void display()
         // Set up the object transformations 
         // And pass in the appropriate material properties
         // Again glUniform() related functions will be useful
+
+	glUniform4fv(ambientcol, 1, obj->ambient);
+	glUniform4fv(diffusecol, 1, obj->diffuse);
+	glUniform4fv(specularcol, 1, obj->specular);
+	glUniform4fv(emissioncol, 1, obj->emission);
+	
+	glUniform1fv(shininesscol, 1, &obj->shininess);
 
         // Actually draw the object
         // We provide the actual glut drawing functions for you.  
