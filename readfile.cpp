@@ -165,6 +165,12 @@ void readfile(const char* filename)
                 } else if (cmd == "camera") {
                     validinput = readvals(s,10,values); // 10 values eye cen up fov
                     if (validinput) {
+			    eye = vec3(values[0], values[1], values[2]);
+			    center = vec3(values[3], values[4], values[5]);
+			    up = vec3(values[6], values[7], values[8]);
+			    up = Transform::upvector(up, center - eye);
+			    fovy = values[9];
+			    
 
                         // YOUR CODE FOR HW 2 HERE
                         // Use all of values[0...9]
