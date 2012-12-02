@@ -37,6 +37,16 @@ void transformvec (const GLfloat input[4], GLfloat output[4])
     }
 }
 
+mat4 multiplyStack(stack<mat4> st) {
+	mat4 res(1);
+	
+	while (!st.empty()) {
+		res = res * st.top();
+		st.pop();
+	}
+	return res;
+}
+
 void display() 
 {
     glClearColor(0, 0, 1, 0);
@@ -113,6 +123,13 @@ void display()
 	
 	glUniform1fv(shininesscol, 1, &obj->shininess);
 
+	transf = mv * glm::transpose(tr) * glm::transpose(sc) * glm::transpose(obj->transform);
+	// glPushMatrix();
+	// mat4 ot = obj->transform;
+
+	glLoadMatrixf(&transf[0][0]); 
+	// glMultMatrixf(&ot[0][0]);
+
         // Actually draw the object
         // We provide the actual glut drawing functions for you.  
         // Remember that obj->type is notation for accessing struct fields
@@ -126,6 +143,8 @@ void display()
         else if (obj->type == teapot) {
             glutSolidTeapot(obj->size); 
         }
+
+	// glPopMatrix();
 
     }
 

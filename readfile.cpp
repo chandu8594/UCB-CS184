@@ -226,12 +226,19 @@ void readfile(const char* filename)
                         // Think about how the transformation stack is affected
                         // You might want to use helper functions on top of file. 
                         // Also keep in mind what order your matrix is!
+			    mat4 tmat = Transform::translate(values[0], values[1], values[2]);
+			    rightmultiply(tmat, transfstack);
 
                     }
                 }
                 else if (cmd == "scale") {
                     validinput = readvals(s,3,values); 
                     if (validinput) {
+
+			    mat4 tmat = Transform::scale(values[0], values[1], values[2]);
+			    rightmultiply(tmat, transfstack);
+
+
 
                         // YOUR CODE FOR HW 2 HERE.  
                         // Think about how the transformation stack is affected
@@ -250,7 +257,10 @@ void readfile(const char* filename)
                         // See how the stack is affected, as above.  
                         // Note that rotate returns a mat3. 
                         // Also keep in mind what order your matrix is!
-
+			    vec3 axis = glm::normalize(vec3(values[0], values[1], values[2]));
+	
+			    mat4 tmat = mat4(Transform::rotate(values[3],axis));
+			    rightmultiply(tmat, transfstack);
                     }
                 }
 
