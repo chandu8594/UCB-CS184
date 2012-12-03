@@ -66,7 +66,7 @@ void display()
         mv = glm::transpose(mv); // accounting for row major
     }
 
-    // glLoadMatrixf(&mv[0][0]);
+    glLoadMatrixf(&mv[0][0]);
 
     // glColor3f(0.7, 0.7, 0);
     // glutSolidTeapot(2);
@@ -77,10 +77,28 @@ void display()
     // So we need to do so manually.  
     if (numused) {
         glUniform1i(enablelighting,true);
+
 	glUniform1i(numusedcol, numused);
 	
-	glUniform4fv(lightpos, numLights, lightposn);
-	glUniform4fv(lightcol, numLights, lightcolor);
+	for (int i=0; i<numused; i++) {
+		GLfloat temp[4];
+		GLfloat out[4];
+				
+		temp[0] = lightposn[4*i];
+		temp[1] = lightposn[4*i+1]; 
+		temp[2] = lightposn[4*i+2];
+		temp[3] = lightposn[4*i+3];
+				
+		transformvec(temp,out);
+				
+		lightransf[4*i] = out[0];
+		lightransf[4*i+1] = out[1];
+		lightransf[4*i+2] = out[2];
+		lightransf[4*i+3] = out[3];
+	}
+	glUniform4fv(lightpos,numLights,lightransf);
+	glUniform4fv(lightcol,numLights,lightcolor);
+
 
         // YOUR CODE FOR HW 2 HERE.  
         // You need to pass the light positions and colors to the shader. 
