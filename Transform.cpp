@@ -91,9 +91,9 @@ mat4 Transform::translate(const float &tx, const float &ty, const float &tz)
 {
 	mat4 ret(1.0);
 
-	ret[3][0] = tx;
-	ret[3][1] = ty;
-	ret[3][2] = tz;
+	ret[0][3] = tx;
+	ret[1][3] = ty;
+	ret[2][3] = tz;
 	
     // YOUR CODE FOR HW2 HERE
     // Implement translation 
