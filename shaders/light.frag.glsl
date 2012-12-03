@@ -47,7 +47,7 @@ vec4 ComputeLight (const in vec3 direction, const in vec4 lightcolor, const in v
 void main (void) 
 {       
 	if (enablelighting) {       
-		vec4 finalcolor = vec4(0.0,0.0,0.0,1); 
+		vec4 finalcolor = vec4(0.0,0.0,0.0,0); 
 
 		// YOUR CODE FOR HW 2 HERE
 		// A key part is implementation of the fragment shader
@@ -68,10 +68,20 @@ void main (void)
 		int i;
 	
 		for (i = 0; i < numused; i++) {
-			vec3 position = lightposn[i].xyz / lightposn[i].w ;
-			vec3 direction = normalize (position - mypos) ; // no attenuation 
-			vec3 half = normalize (direction + eyedirn) ;
-			vec4 col = ComputeLight(direction, lightcolor[i], normal, half, diffuse, specular, shininess) ;
+			vec4 col;
+			if (lightposn[i].w == 0) { // Check if that's
+						   // directional light
+				vec3 direction = normalize (lightposn[i].xyz) ; 
+										
+				vec3 half = normalize (direction + eyedirn) ;
+				 col = ComputeLight(direction, lightcolor[i], normal, half, diffuse, specular, shininess) ;
+			}
+			else {
+				vec3 position = lightposn[i].xyz / lightposn[i].w ;
+				vec3 direction = normalize (position - mypos) ; 
+				vec3 half = normalize (direction + eyedirn) ;
+				 col = ComputeLight(direction, lightcolor[i], normal, half, diffuse, specular, shininess) ;
+			}
 
 			finalcolor += col;
 		}
@@ -79,7 +89,7 @@ void main (void)
 		// Color all pixels blue for now, remove this in your implementation!
 		/* finalcolor = vec4(1,0,0,1);  */
 
-		gl_FragColor = finalcolor; 
+		gl_FragColor = finalcolor + ambient + emission;
 	} else {
 		gl_FragColor = color; 
 	}
