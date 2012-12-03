@@ -168,7 +168,7 @@ void readfile(const char* filename)
 			    eyeinit = vec3(values[0], values[1], values[2]);
 			    center = vec3(values[3], values[4], values[5]);
 			    up = vec3(values[6], values[7], values[8]);
-			    up = Transform::upvector(up, center - eye);
+			    upinit = Transform::upvector(up, eyeinit);
 			    fovy = values[9];
 			    
 
